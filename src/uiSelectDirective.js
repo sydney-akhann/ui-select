@@ -186,6 +186,11 @@ uis.directive('uiSelect',
             throw uiSelectMinErr('transcluded', "Expected 1 .ui-select-choices but got '{0}'.", transcludedChoices.length);
           }
           element.querySelectorAll('.ui-select-choices').replaceWith(transcludedChoices);
+
+          var transcludedStaticChoice = transcluded.querySelectorAll('.ui-select-static-choice');
+          transcludedChoices.removeAttr('ui-select-static-choice'); //To avoid loop in case directive as attr
+          transcludedChoices.removeAttr('data-ui-select-static-choice'); // Properly handle HTML5 data-attributes
+          element.querySelectorAll('.ui-select-static-choice').replaceWith(transcludedStaticChoice);
         });
 
         // Support for appending the select field to the body when its open
